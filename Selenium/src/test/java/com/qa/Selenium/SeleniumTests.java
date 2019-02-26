@@ -16,6 +16,8 @@ public class SeleniumTests {
 	String X = "Sanchez";
 
 	String url = "http://thedemosite.co.uk/addauser.php";
+	
+	String url2 = "http://automationpractice.com/index.php";
 
 	@Before
 	public void setup() {
@@ -54,6 +56,18 @@ public class SeleniumTests {
 		assertEquals("sanchez not found", true, checkElementBody.getText().contains(X));
 		
 		/*System.out.println(checkElementBody.getText());*/
+	}
+	@Test
+	public void searchItemTest() {
+		driver.get(url2);
+		WebElement checkSearchItems = driver.findElement(By.xpath("//*[@id=\"search_query_top\"]"));
+		checkSearchItems.sendKeys("Dress");
+		WebElement searchButton = driver.findElement(By.xpath("//*[@id=\"searchbox\"]/button"));
+		searchButton.click();
+		WebElement checkDressPage = driver.findElement(By.xpath("//*[@id=\"center_column\"]"));
+		
+		assertEquals("Dress that is Blouse not found", true, checkDressPage.getText().contains("Blouse"));
+		
 	}
 
 }
